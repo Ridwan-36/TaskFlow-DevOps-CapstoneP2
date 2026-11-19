@@ -231,8 +231,7 @@ After the containers became healthy, the application API was tested again.
 
 Previously stored tasks remained available after the restart, confirming that the named Docker volume preserved database data.
 
-## 11. ## 11. Logging and Health Checks
-
+## 11. Logging and Health Checks
 Application logs can be inspected using:
 
 ```bash
