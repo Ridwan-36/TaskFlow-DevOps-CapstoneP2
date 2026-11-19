@@ -1,13 +1,13 @@
 services:
   db:
-    image: postgres:17-alpine
+    build: ./database
+    image: taskflow-database:1.0
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - taskflow_db_data:/var/lib/postgresql/data
-      - ./database/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       interval: 5s
@@ -16,6 +16,7 @@ services:
     restart: unless-stopped
 
   backend:
+    build: ./backend
     image: taskflow-backend:1.0
     environment:
       DB_HOST: ${DB_HOST}
